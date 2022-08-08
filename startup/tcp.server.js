@@ -1,6 +1,7 @@
 const saveDataToDatabase = require('../controlers/saveDataToDatabase');
 
 const tcpPort = process.env.TCP_PORT || 3001;
+
 class ChunkHolder {
     constructor() {
         this.chunk = "";

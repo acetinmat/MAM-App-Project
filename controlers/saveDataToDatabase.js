@@ -1,5 +1,4 @@
 const Data = require('../models/data.model');
-const moment = require('moment-timezone');
 
 module.exports = async function (chunkHolder) {
     let dataObj = {};
