@@ -4,7 +4,7 @@ const tcpPort = process.env.TCP_PORT || 3001;
 
 class ChunkHolder {
     constructor() {
-        this.chunk = "";
+        this.chunk = "";    // takes data from socket
     }
 }
 
@@ -15,6 +15,7 @@ module.exports = function (server) {
         console.log(`Server listening for connection requests on socket localhost:${tcpPort}`);
     });
 
+    // emits when saved data that is taken from tcp socket to chunkHolder.chunk 
     server.on('dataAdded', saveDataToDatabase);
 
     server.on('connection', function (socket) {
@@ -25,8 +26,8 @@ module.exports = function (server) {
 
         // The server can also receive data from the client by reading from its socket.
         socket.on('data', function (data) {
-            chunkHolder.chunk += data.toString(); // Add string on the end of the variable 'chunk'
-            console.log(`Chunk in data event: ${chunkHolder.chunk}`);
+            chunkHolder.chunk += data.toString(); // Add string on the end of the variable 'chunkHolder.chunk'
+            // console.log(`Chunk in data event: ${chunkHolder.chunk}`);
             server.emit('dataAdded', chunkHolder);
         });
 
@@ -38,7 +39,7 @@ module.exports = function (server) {
 
         // Don't forget to catch error, for your own sake.
         socket.on('error', function (err) {
-            console.log(`Error: ${err}`);
+            console.log(`Socket Error: ${err}`);
         });
     });
 }

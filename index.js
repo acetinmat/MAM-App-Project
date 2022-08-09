@@ -8,6 +8,7 @@ const app = express();
 
 require('./startup/db')();
 require('./startup/tcp.server')(server);
+require('./startup/scheduled.tasks')();
 
 app.use('/api/data', data);
 app.use('/api/temp', temp);
