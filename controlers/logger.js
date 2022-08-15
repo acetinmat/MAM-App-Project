@@ -42,7 +42,7 @@ if (process.env.NODE_ENV !== 'production') {
             winston.format.simple(),
             winston.format.colorize()
         ),
-        level: 'info'
+        level: 'debug'
     }));
 }
 

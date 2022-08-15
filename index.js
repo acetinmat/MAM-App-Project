@@ -1,5 +1,4 @@
 const errorMiddleware = require('./middlewares/error');
-const temp = require('./routes/temp');
 const data = require('./routes/data');
 const Net = require('net');
 const express = require('express');
