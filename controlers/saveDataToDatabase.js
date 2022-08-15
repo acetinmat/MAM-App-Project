@@ -14,7 +14,7 @@ module.exports = async function (chunkHolder) {
             const data = new Data(dataObj);
             await data.save();
             // logger.info(`Data saved to the database: ${data}`);
-            logger.info('Data saved to database.');
+            logger.debug('Data saved to database.');
         } catch (ex) {
             logger.error(ex.message, ex);
         }

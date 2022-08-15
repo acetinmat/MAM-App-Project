@@ -27,7 +27,7 @@ module.exports = function (server) {
 
         // The server can also receive data from the client by reading from its socket.
         socket.on('data', function (data) {
-            logger.info('Data recieved.');
+            logger.debug('Data recieved.');
             chunkHolder.chunk += data.toString(); // Add string on the end of the variable 'chunkHolder.chunk'
             server.emit('dataAdded', chunkHolder);
         });
