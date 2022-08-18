@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    volumes:
+      - mongodb_data:/data/db
+      - mongodb_config:/data/configdb
+
+  mam-app:
+    build: ./
+    ports:
+      - 3000:3000
+      - 3001:3001
+    volumes:
+      - logFiles:/app/logFiles
+
+volumes:
+  mongodb_data:
+  mongodb_config:
+  logFiles:
