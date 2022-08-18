@@ -15,10 +15,11 @@ module.exports = async function (chunkHolder) {
             await data.save();
             // logger.info(`Data saved to the database: ${data}`);
             logger.debug('Data saved to database.');
+            chunkHolder.chunk = chunkHolder.chunk.substring(d_index + 1); // Cuts off the processed chunk
+            d_index = chunkHolder.chunk.indexOf(';'); // Find the new delimiter
         } catch (ex) {
             logger.error(ex.message, ex);
+            break;
         }
-        chunkHolder.chunk = chunkHolder.chunk.substring(d_index + 1); // Cuts off the processed chunk
-        d_index = chunkHolder.chunk.indexOf(';'); // Find the new delimiter
     }
 }
