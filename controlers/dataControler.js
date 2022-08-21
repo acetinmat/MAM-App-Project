@@ -3,7 +3,7 @@ const q2m = require('query-to-mongo');
 const logger = require('./logger');
 
 module.exports = async function (req, res, next) {
-    logger.info(`Http request: GET ${req.baseUrl}${req.path}`);
+    logger.debug(`Http request: GET ${req.baseUrl}${req.path}`);
     const queryObj = q2m(req.query);
     let dataCount = {};
     let data = {};
@@ -14,12 +14,17 @@ module.exports = async function (req, res, next) {
             .select(queryObj.options.fields)
             .sort(queryObj.options.sort);
 
-            const urlString = `${req.protocol}://${req.header('host')}${req.baseUrl}${req.path}`;
-        
-            const links = queryObj.links(urlString, dataCount);
-        
-            res.send(`${dataCount}, ${data}, ${JSON.stringify(links)}`);
-            // TODO: Refactor sending response code
+        const urlString = `${req.protocol}://${req.header('host')}${req.baseUrl}${req.path}`;
+
+        const links = queryObj.links(urlString, dataCount);
+
+        const responseObj = {
+            dataCount: dataCount,
+            data: data,
+            links: links
+        }
+
+        res.send(responseObj);
 
     } catch (error) {
         next(error);    // Sends error to the errorMiddleware
