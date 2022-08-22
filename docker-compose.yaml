@@ -11,12 +11,11 @@ services:
   mam-app:
     build: ./
     ports:
-      - 3000:3000
-      - 3001:3001
+      - ${EXPRESS_PORT}:${EXPRESS_PORT}
+      - ${TCP_PORT}:${TCP_PORT}
     volumes:
-      - logFiles:/app/logFiles
+      - ${LOG_FILES_VOLUME_PATH}:/app/logFiles
 
 volumes:
   mongodb_data:
   mongodb_config:
-  logFiles:

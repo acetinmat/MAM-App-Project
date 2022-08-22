@@ -1,3 +1,4 @@
+require('dotenv').config();
 const errorMiddleware = require('./middlewares/error');
 const data = require('./routes/data');
 const Net = require('net');
