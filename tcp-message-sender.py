@@ -2,7 +2,7 @@ import socket
 import json
 from time import sleep
 
-HOST, PORT = "localhost", 3001
+HOST, PORT = "172.31.236.141", 3001
 
 #m ='{"id": 2, "name": "abc"}'
 count = 0
