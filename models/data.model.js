@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const moment = require('moment-timezone');
 
 const dataSchema = mongoose.Schema({
     time: {
@@ -24,7 +23,7 @@ const dataSchema = mongoose.Schema({
     },
     createdAt: { 
         type: Date,
-        default: moment(Date.now()).tz("Europe/Istanbul").format()
+        required: true
     }
 });
 

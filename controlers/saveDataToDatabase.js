@@ -12,6 +12,7 @@ module.exports = async function (chunkHolder) {
         try {
             dataObj = JSON.parse(string);
             const data = new Data(dataObj);
+            data.createdAt = Date.now();
             await data.save();
             // logger.info(`Data saved to the database: ${data}`);
             logger.debug('Data saved to database.');
