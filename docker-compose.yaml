@@ -9,7 +9,7 @@ services:
       - mongodb_config:/data/configdb
 
   mam-app:
-    build: ./
+    image: ahmetcetinkou/mam-app
     ports:
       - ${EXPRESS_PORT}:${EXPRESS_PORT}
       - ${TCP_PORT}:${TCP_PORT}
