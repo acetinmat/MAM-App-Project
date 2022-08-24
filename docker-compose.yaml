@@ -15,6 +15,15 @@ services:
       - ${TCP_PORT}:${TCP_PORT}
     volumes:
       - ${LOG_FILES_VOLUME_PATH}:/app/logFiles
+    environment:
+      - NODE_ENV=${NODE_ENV}
+      - TCP_PORT=${TCP_PORT}
+      - EXPRESS_PORT=${EXPRESS_PORT}
+      - MONGODB_CONNECTION_STRING=${MONGODB_CONNECTION_STRING}
+      - DAYS_BEFORE=${DAYS_BEFORE}
+      - TIMEZONE=${TIMEZONE}
+      - ERROR_TOLERANCE=${ERROR_TOLERANCE}
+      - LOG_FILES_VOLUME_PATH=${LOG_FILES_VOLUME_PATH}
 
 volumes:
   mongodb_data:
