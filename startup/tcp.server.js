@@ -1,15 +1,7 @@
 const logger = require('../controlers/logger');
 const saveDataToDatabase = require('../controlers/saveDataToDatabase');
-
+let chunkHolder = require('../models/chunk.holder');
 const tcpPort = process.env.TCP_PORT || 3001;
-
-class ChunkHolder {
-    constructor() {
-        this.chunk = "";    // takes data from socket
-    }
-}
-
-let chunkHolder = new ChunkHolder();
 
 module.exports = function (server) {
     server.listen(tcpPort, function () {
@@ -29,7 +21,8 @@ module.exports = function (server) {
         socket.on('data', function (data) {
             logger.debug('Data recieved.');
             chunkHolder.chunk += data.toString(); // Add string on the end of the variable 'chunkHolder.chunk'
-            server.emit('dataAdded', chunkHolder);
+            chunkHolder.lastEditTime = Date.now();
+            server.emit('dataAdded');
         });
 
         // When the client requests to end the TCP connection with the server, the server

@@ -1,6 +1,7 @@
 const cron = require('node-cron');
 const logger = require('../controlers/logger');
 const Data = require('../models/data.model');
+let chunkHolder = require('../models/chunk.holder');
 
 module.exports = function () {
 
@@ -22,5 +23,17 @@ module.exports = function () {
             timezone: timezone_string
         });
     
-    logger.info('A task that removing old records scheduled: Everyday at 00.30');
+    logger.info('A task that removing old records is scheduled: Everyday at 00.30');
+
+    cron.schedule(
+        '*/10 * * * *',
+        () => {
+            const elapsedTime = Date.now() - chunkHolder.lastEditTime;
+            if( chunkHolder.lastEditTime &&  elapsedTime >  1 * 60 * 1000 ) {
+                logger.warn(`No data in the last ${Math.round(elapsedTime / 60000)} minutes.` );
+            }
+        }
+    )
+
+    logger.info('A task that is checking incoming data is scheduled: Every 10th minute.');
 }
