@@ -4,6 +4,9 @@ let chunkHolder = require('../models/chunk.holder');
 const tcpPort = process.env.TCP_PORT || 3001;
 
 module.exports = function (server) {
+
+    server.maxConnections = 1;      // Only one connection is allowed.
+
     server.listen(tcpPort, function () {
         logger.info(`Server listening for connection requests on socket localhost:${tcpPort}`);
     });
