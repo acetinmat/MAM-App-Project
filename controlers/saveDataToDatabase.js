@@ -6,7 +6,6 @@ module.exports = async function () {
     let dataObj = {};
     let string = "";
     let d_index = null;
-    let errCount = 0;
     // logger.info(`Chunk: ${ JSON.parse(chunkHolder.chunk) }`);
     d_index = chunkHolder.chunk.indexOf(';'); // Find the delimiter
     while (d_index > -1) {
@@ -20,12 +19,13 @@ module.exports = async function () {
             logger.debug('Data saved to database.');
             chunkHolder.chunk = chunkHolder.chunk.substring(d_index + 1); // Cuts off the processed chunk
             d_index = chunkHolder.chunk.indexOf(';'); // Find the new delimiter
-            errCount = 0;
+            chunkHolder.errorCount = 0;
         } catch (ex) {
             logger.error(ex.message, ex);
-            errCount++;
-            if (errCount > (process.env.ERROR_TOLERANCE || 5 )) {
-                logger.error(`${errCount} times error occured. Something went wrong.`);
+            logger.error(`Chunk: ${chunkHolder.chunk}`);
+            chunkHolder.errorCount++;
+            if (chunkHolder.errorCount > (process.env.ERROR_TOLERANCE || 5 )) {
+                logger.error(`${chunkHolder.errorCount} times error occured. Something went wrong.`);
                 logger.error('App is terminated.');
                 process.exit(1);
             }
