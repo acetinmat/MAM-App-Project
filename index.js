@@ -21,4 +21,21 @@ app.use('/api/data', data);
 app.use(errorMiddleware);
 
 const expressPort = process.env.EXPRESS_PORT || 3000;
-app.listen(expressPort, () => logger.info(`Express Server is listenning on port ${expressPort}`));
+const expressServer = app.listen(expressPort, () => logger.info(`Express Server is listenning on port ${expressPort}`));
+
+process.on('SIGTERM', () => {
+    let tcpErr, expressErr;
+    console.info('SIGTERM signal received.');
+    console.log('Closing tcp server.');
+    server.close((err) => {
+      console.log('Http server closed.');
+      tcpErr = err;
+    });
+    console.log('Closing express server.');
+    expressServer.close((err) => {
+      console.log('Http server closed.');
+      expressErr = err;
+    });
+    const exitCode = (tcpErr || expressErr);
+    process.exit(exitCode ? 1 : 0);
+  });
