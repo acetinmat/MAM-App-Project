@@ -1,5 +1,3 @@
 node_modules/
-x.js
-tcp-message-sender.py
 logFiles
 .env
