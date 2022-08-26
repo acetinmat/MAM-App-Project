@@ -17,7 +17,7 @@ const logger = winston.createLogger({
                 winston.format.timestamp(),
                 winston.format.json()
             ),
-            maxFiles: `${process.env.DAYS_BEFORE || 7}d`     // 7d: Deletes files older than 7 days
+            maxFiles: (process.env.DAYS_BEFORE || 7)     // Deletes old files if total counts of files reaches 7.
         }),
         new winston.transports.File({
             filename: 'error.log',
